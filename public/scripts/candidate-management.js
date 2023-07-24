@@ -2,7 +2,7 @@ const deleteCandidateButtonElements = document.querySelectorAll(
   ".candidate-card button"
 );
 
-async function deleteProduct(event) {
+async function deleteCandidate(event) {
   const buttonElement = event.target;
   const productId = buttonElement.dataset.candidateid;
   const csrfToken = buttonElement.dataset.csrf;
@@ -23,5 +23,5 @@ async function deleteProduct(event) {
 }
 
 for (const deleteCandidateButtonElement of deleteCandidateButtonElements) {
-  deleteCandidateButtonElement.addEventListener("click", deleteProduct);
+  deleteCandidateButtonElement.addEventListener("click", deleteCandidate);
 }
