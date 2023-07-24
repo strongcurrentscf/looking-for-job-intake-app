@@ -1,0 +1,35 @@
+<article class="candidate-card">
+    <div class="candidate-card-content">
+        <div class="candidate-card-actions">
+            <h4>
+                <%= candidate.position %>
+            </h4>
+            <p class="date-time">
+                <%= candidate.dateTime %>
+            </p>
+            <p>
+                <%= candidate.firstname %>
+            </p>
+            <p>
+                <%= candidate.lastname %>
+            </p>
+            <p>
+                <%= candidate.phone %>
+            </p>
+            <p>
+                <%= candidate.email %>
+            </p>
+            <!-- <a class="btn btn-alt" href="/admin/candidate/candidate-id">View</a> -->
+            <!-- <button class="btn btn-alt" data-id="<%= candidate._id %>">Delete</button> -->
+            <!-- <form action="/lookingforjob/<%= candidate._id %>/delete" method="POST">
+                <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>" />
+                <button class="btn btn-alt">Delete</button>
+            </form> -->
+            <div class="candidate-card-actions">
+                <a class="btn btn-alt" href="/lookingforjob/<%= candidate._id %>">View CV/Resume</a>
+                <button class="btn btn-alt" data-candidateid="<%= candidate._id %>"
+                    data-csrf="<%= locals.csrfToken %>">Delete</button>
+            </div>
+        </div>
+    </div>
+</article>

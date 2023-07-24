@@ -1,0 +1,31 @@
+<%- include('../shared/includes/head', { pageTitle: 'Admin Login' }) %>
+    <link rel="stylesheet" href="/styles/forms.css">
+    <!-- <link rel="stylesheet" href="/styles/auth.css"> -->
+    </head>
+
+    <body>
+        <%- include('../shared/includes/header') %>
+            <main>
+                <h2>Admin Login</h2>
+                <% if (inputData.errorMessage) { %>
+                    <section class="alert">
+                        <h3>Invalid Credentials</h3>
+                        <p>
+                            <%= inputData.errorMessage %>
+                        </p>
+                    </section>
+                    <% } %>
+                        <form action="/login" method="POST">
+                            <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+                            <p>
+                                <label for="adminuser">Admin User</label>
+                                <input type="text" id="adminuser" name="adminuser" value="<%= inputData.adminuser %>" required>
+                            </p>
+                            <p>
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="password" value="<%= inputData.password %>" required>
+                            </p>
+                            <button class="btn">Login</button>
+                        </form>
+            </main>
+            <%- include('../shared/includes/footer') %>

@@ -1,0 +1,65 @@
+<%- include("../shared/includes/head", { pageTitle: "Looking-For-A-Job" }) %>
+    <link rel="stylesheet" href="/styles/forms.css">
+    </head>
+
+    <body>
+        <%- include('../shared/includes/header') %>
+            <main>
+                <h2>Contact Info</h2>
+                <% if (inputData.errorMessage) { %>
+                    <section class="alert">
+                        <h3>Invalid Input</h3>
+                        <p>
+                            <%= inputData.errorMessage %>
+                        </p>
+                    </section>
+                    <% } %>
+                        <form action="/intake?_csrf=<%= locals.csrfToken %>" method="POST" enctype="multipart/form-data">
+                            <!-- <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>"> -->
+                            <p>
+                                <label for="firstname">First Name</label>
+                                <input type="text" id="firstname" name="firstname" value="<%= inputData.firstname %>"
+                                    required>
+                            </p>
+                            <p>
+                                <label for="lastname">Last Name</label>
+                                <input type="text" id="lastname" name="lastname" value="<%= inputData.lastname %>"
+                                    required>
+                            </p>
+                            <p>
+                                <label for="phone">Phone</label>
+                                <input type="tel" id="phone" name="phone" placeholder="10-digit number"
+                                    pattern="[0-9]{10}" value="<%= inputData.phone %>" required>
+                            </p>
+                            <p>
+                                <label for="email">E-Mail</label>
+                                <input type="email" id="email" name="email" value="" required>
+                            </p>
+                            <hr>
+                            <p>
+                                <label for="resume">CV/Resume</label>
+                                <input type="file" id="resume" name="resume" accept=".pdf">
+                            </p>
+                            <hr>
+                            <p>
+                                <label for="position">Desired Position</label>
+                                <select name="position" id="position" required>
+                                    <option value="">
+                                        Select a Position
+                                    </option>
+                                    <option value="Pizza maker" <%=inputData.position==="Pizza maker" ? "selected" : ""
+                                        %>>
+                                        Pizza Maker</option>
+                                    <option value="Porter" <%=inputData.position==="Porter" ? "selected" : "" %>>
+                                        Porter</option>
+                                    <option value="Prep" <%=inputData.position==="Prep" ? "selected" : "" %>>Prep
+                                    </option>
+                                    <option value="Counter" <%=inputData.position==="Counter" ? "selected" : "" %>>
+                                        Counter</option>
+                                </select>
+                            </p>
+                            <button class="btn">Submit</button>
+                            <p id="admin"><a href="/login">Login as Administrator instead</a></p>
+                        </form>
+            </main>
+            <%- include("../shared/includes/footer") %>

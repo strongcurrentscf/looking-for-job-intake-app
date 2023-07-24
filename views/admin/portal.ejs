@@ -1,0 +1,35 @@
+<%- include('../shared/includes/head', { pageTitle: 'Admin Portal' }) %>
+    <link rel="stylesheet" href="/styles/candidates.css">
+    <script src="/scripts/candidate-management.js" defer></script>
+    </head>
+
+    <body>
+        <%- include('../shared/includes/header') %>
+            <main>
+                <% if (locals.isAuth) { %>
+                    <h2>Administration Portal</h2>
+                    <h3>All Candidates</h3>
+
+                    <section>
+                        <ul id="candidate-grid">
+                            <% for (const candidate of candidates) { %>
+                                <li>
+                                    <%- include("includes/candidate-card", {candidate: candidate}) %>
+                                </li>
+                                <% } %>
+                        </ul>
+                    </section>
+
+                    <form action="/logout" method="POST">
+                        <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+                        <button class="btn">Logout</button>
+                    </form>
+                    <% } else { %>
+                        <h2>Only an administrator can have portal access.</h2>
+                        <form action="/login" method="GET">
+                            <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+                            <button class="btn">Admin Login</button>
+                        </form>
+                        <% } %>
+            </main>
+            <%- include('../shared/includes/footer') %>
