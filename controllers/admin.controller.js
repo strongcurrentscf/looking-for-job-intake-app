@@ -1,4 +1,5 @@
 const Admin = require("../models/admin.model");
+const User = require("../models/user.model");
 
 const sessionFlash = require("../util/session-flash");
 const authUtil = require("../util/authentication");
@@ -96,15 +97,15 @@ async function getAdminPortal(req, res, next) {
 
 async function deleteUser(req, res, next) {
   // ...
+  let user;
   try {
-    await Admin.deleteCandidate(req.params.id);
-    //   console.log(req.params.id);
-
-    res.redirect("/lookingforjob");
+    user = await User.findUserById(req.params.id);
+    await user.remove();
   } catch (error) {
-    next(error);
-    return;
+    return next(error);
   }
+
+  res.json({ message: "Deleted user!" });
 }
 
 // adminReg.registerAdmin();

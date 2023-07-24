@@ -29,7 +29,7 @@ async function intakeUser(req, res) {
     lastname: req.body.lastname,
     phone: req.body.phone,
     email: req.body.email,
-    resume: this.resume,
+    resume: req.file.filename,
     resumeFilePath: this.resumeFilePath,
     position: req.body.position,
   };
@@ -60,15 +60,10 @@ async function intakeUser(req, res) {
 
   const dateTime = getCurrentDateTime(); // Output: "7/13/2023 11:03PM" (based on the current date and time)
 
-  const user = new User(
-    req.body.firstname,
-    req.body.lastname,
-    req.body.phone,
-    req.body.email,
-    req.file.filename,
-    req.body.position,
-    dateTime
-  );
+  const user = new User({
+    ...enteredData,
+    dateTime,
+  });
 
   if (
     !validationUtil.userDetailsAreValid(

@@ -12,6 +12,6 @@ router.post("/logout", adminController.logoutAdmin);
 
 router.get("/lookingforjob", adminController.getAdminPortal);
 
-router.post("/lookingforjob/:id/delete", adminController.deleteUser);
+router.delete("/lookingforjob/:id/delete", adminController.deleteUser);
 
 module.exports = router;

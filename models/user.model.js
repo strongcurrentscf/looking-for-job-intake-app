@@ -1,16 +1,21 @@
 const db = require("../data/database");
 
+const mongodb = require("mongodb");
+
 class User {
-  constructor(firstname, lastname, phone, email, resume, position, dateTime) {
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.phone = phone;
-    this.email = email;
-    this.resume = resume;
-    this.resumeFilePath = `user-data/pdf/${resume}`;
-    this.resumeUrl = `/users/pdf/${resume}`;
-    this.position = position;
-    this.dateTime = dateTime;
+  constructor(userData) {
+    this.firstname = userData.firstname;
+    this.lastname = userData.lastname;
+    this.phone = userData.phone;
+    this.email = userData.email;
+    this.resume = userData.resume;
+    this.resumeFilePath = `user-data/pdf/${userData.resume}`;
+    this.resumeUrl = `/users/pdf/${userData.resume}`;
+    this.position = userData.position;
+    this.dateTime = userData.dateTime;
+    if (userData._id) {
+      this.id = userData._id.toString();
+    }
   }
 
   getUserWithSameEmail() {
@@ -26,7 +31,15 @@ class User {
   }
 
   async intakeUser() {
-    await db.getDb().collection("users").insertOne({
+    // firstname: this.firstname,
+    // lastname: this.lastname,
+    // phone: this.phone,
+    // email: this.email,
+    // resume: this.resume,
+    // position: this.position,
+    // dateTime: this.dateTime,
+
+    const userData = {
       firstname: this.firstname,
       lastname: this.lastname,
       phone: this.phone,
@@ -34,7 +47,33 @@ class User {
       resume: this.resume,
       position: this.position,
       dateTime: this.dateTime,
-    });
+    };
+
+    await db.getDb().collection("users").insertOne(userData);
+  }
+
+  static async findUserById(id) {
+    let userId;
+    try {
+      userId = new mongodb.ObjectId(id);
+    } catch (error) {
+      error.code = 404;
+      throw error;
+    }
+    const user = await db.getDb().collection("users").findOne({ _id: userId });
+
+    if (!user) {
+      const error = new Error("Could not find user with provided id.");
+      error.code = 404;
+      throw error;
+    }
+
+    return new User(user);
+  }
+
+  remove() {
+    const userId = new mongodb.ObjectId(this.id);
+    return db.getDb().collection("users").deleteOne({ _id: userId });
   }
 }
 

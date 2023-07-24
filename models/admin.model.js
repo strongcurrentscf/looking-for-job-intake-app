@@ -1,7 +1,5 @@
 const bcrypt = require("bcryptjs");
 
-const mongodb = require("mongodb");
-
 const db = require("../data/database");
 
 class Administrator {
@@ -25,11 +23,6 @@ class Administrator {
     const candidates = await db.getDb().collection("users").find().toArray();
 
     return candidates;
-  }
-
-  static async deleteCandidate(id) { 
-       const candidateId = new mongodb.ObjectId(id);
-       return db.getDb().collection("users").deleteOne({ _id: candidateId });
   }
 }
 

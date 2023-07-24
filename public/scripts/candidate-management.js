@@ -4,11 +4,11 @@ const deleteCandidateButtonElements = document.querySelectorAll(
 
 async function deleteCandidate(event) {
   const buttonElement = event.target;
-  const productId = buttonElement.dataset.candidateid;
+  const userId = buttonElement.dataset.candidateid;
   const csrfToken = buttonElement.dataset.csrf;
 
   const response = await fetch(
-    "/admin/products/" + productId + "?_csrf=" + csrfToken,
+    "/lookingforjob/" + userId + "/delete" + "?_csrf=" + csrfToken,
     {
       method: "DELETE",
     }
