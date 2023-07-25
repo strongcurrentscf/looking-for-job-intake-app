@@ -1,0 +1,12 @@
+<%- include('../shared/includes/head', { pageTitle: 'View Candidate File' }) %>
+    <link rel="stylesheet" href="/styles/candidates.css">
+    </head>
+
+    <body>
+        <%- include('../shared/includes/header') %>
+            <main>
+                <h2><%= candidate.firstname %> <%= candidate.lastname %></h2>
+                <h3><%= candidate.position %></h3>
+                <iframe src="/<%= candidate.resumeFilePath %>" width="100%" height="500px"></iframe>
+            </main>
+            <%- include('../shared/includes/footer') %>

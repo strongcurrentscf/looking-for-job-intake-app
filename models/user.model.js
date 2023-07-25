@@ -31,14 +31,6 @@ class User {
   }
 
   async intakeUser() {
-    // firstname: this.firstname,
-    // lastname: this.lastname,
-    // phone: this.phone,
-    // email: this.email,
-    // resume: this.resume,
-    // position: this.position,
-    // dateTime: this.dateTime,
-
     const userData = {
       firstname: this.firstname,
       lastname: this.lastname,
@@ -71,7 +63,7 @@ class User {
     return new User(user);
   }
 
-  remove() {
+  removeUser() {
     const userId = new mongodb.ObjectId(this.id);
     return db.getDb().collection("users").deleteOne({ _id: userId });
   }

@@ -18,7 +18,7 @@ function getAdminLoginForm(req, res) {
   res.render("admin/login.ejs", { inputData: sessionData });
 }
 
-async function loginAdmin(req, res) {
+async function loginAdmin(req, res, next) {
   // ...
 
   let sessionData = {
@@ -95,14 +95,27 @@ async function getAdminPortal(req, res, next) {
   }
 }
 
+async function getUserFile(req, res, next) {
+  let user;
+  try {
+    user = await User.findUserById(req.params.id);
+
+    res.render("admin/user-file", {candidate: user})
+  } catch (error) {
+    next(error);
+    return;
+  }
+}
+
 async function deleteUser(req, res, next) {
   // ...
   let user;
   try {
     user = await User.findUserById(req.params.id);
-    await user.remove();
+    await user.removeUser();
   } catch (error) {
-    return next(error);
+    return;
+    next(error);
   }
 
   res.json({ message: "Deleted user!" });
@@ -115,5 +128,6 @@ module.exports = {
   loginAdmin: loginAdmin,
   logoutAdmin: logoutAdmin,
   getAdminPortal: getAdminPortal,
+  getUserFile: getUserFile,
   deleteUser: deleteUser,
 };
