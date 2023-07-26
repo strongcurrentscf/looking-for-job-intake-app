@@ -114,13 +114,14 @@ async function deleteUser(req, res, next) {
     user = await User.findUserById(req.params.id);
     await user.removeUser();
   } catch (error) {
-    return;
     next(error);
+    return;
   }
 
   res.json({ message: "Deleted user!" });
 }
 
+// Register New Admin by hard-coding user/pw in Reg function
 // adminReg.registerAdmin();
 
 module.exports = {

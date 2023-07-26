@@ -6,30 +6,20 @@
     <body>
         <%- include('../shared/includes/header') %>
             <main>
-                <% if (locals.isAuth) { %>
-                    <h2>Administration Portal</h2>
-                    <h3>All Candidates</h3>
-
-                    <section>
-                        <ul id="candidate-grid">
-                            <% for (const candidate of candidates) { %>
-                                <li>
-                                    <%- include("includes/candidate-card", {candidate: candidate}) %>
-                                </li>
-                                <% } %>
-                        </ul>
-                    </section>
-
-                    <form action="/logout" method="POST">
-                        <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
-                        <button class="btn">Logout</button>
-                    </form>
-                    <% } else { %>
-                        <h2>Only an administrator can have portal access.</h2>
-                        <form action="/login" method="GET">
-                            <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
-                            <button class="btn">Admin Login</button>
-                        </form>
-                        <% } %>
+                <h2>Administration</h2>
+                <form action="/logout" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+                    <button class="btn">Logout</button>
+                </form>
+                <h3>All Candidates</h3>
+                <section>
+                    <ul id="candidate-grid">
+                        <% for (const candidate of candidates) { %>
+                            <li>
+                                <%- include("includes/candidate-card", {candidate: candidate}) %>
+                            </li>
+                            <% } %>
+                    </ul>
+                </section>
             </main>
             <%- include('../shared/includes/footer') %>

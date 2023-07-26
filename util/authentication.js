@@ -4,7 +4,7 @@ function createAdminSession(req, user, action) {
 }
 
 function destroyAdminAuthSession(req) { 
-    req.session.uid = null;
+  req.session.uid = null;
 }
 
 module.exports = {
