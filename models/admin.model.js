@@ -20,7 +20,12 @@ class Administrator {
   }
 
   static async getAllCandidates() {
-    const candidates = await db.getDb().collection("users").find().toArray();
+    const candidates = await db
+      .getDb()
+      .collection("users")
+      .find()
+      .sort({ _id: -1 })
+      .toArray();
 
     return candidates;
   }

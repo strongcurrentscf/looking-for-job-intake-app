@@ -10,10 +10,15 @@ const addCsrfTokenMiddleware = require("./middlewares/csrf-token");
 const errorHandlerMiddleware = require("./middlewares/error-handler");
 const checkAuthStatusMiddleware = require("./middlewares/check-auth");
 const protectRoutesMiddleware = require("./middlewares/protect-routes");
+const notFoundMiddleware = require("./middlewares/not-found");
 const mainRoutes = require("./routes/main.route");
 const adminRoutes = require("./routes/admin.route");
 
+let port = 3000;
 
+if (process.env.PORT) {
+  port = process.env.PORT;
+}
 const app = express();
 
 app.set("view engine", "ejs");
@@ -32,14 +37,15 @@ app.use(addCsrfTokenMiddleware);
 app.use(checkAuthStatusMiddleware);
 
 app.use(mainRoutes);
-app.use(protectRoutesMiddleware)
-app.use(adminRoutes);
+app.use(protectRoutesMiddleware, adminRoutes);
+
+app.use(notFoundMiddleware);
 
 app.use(errorHandlerMiddleware);
 
 db.connectToDatabase()
   .then(function () {
-    app.listen(3000);
+    app.listen(port);
   })
   .catch(function (error) {
     console.log("Failed to connect to the database!");

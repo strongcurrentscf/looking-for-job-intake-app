@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A web application to take in the contact information of candidates that walk into the shop looking for a job.",
   "main": "index.js",
+  "engines": {
+    "node": "19.x" 
+  },
   "scripts": {
     "start": "nodemon app.js"
   },
