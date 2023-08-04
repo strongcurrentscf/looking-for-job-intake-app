@@ -15,7 +15,7 @@ const mainRoutes = require("./routes/main.route");
 const adminRoutes = require("./routes/admin.route");
 
 // let port = 3000;
-let port = mongodb+srv://zazzys:zazzys73!@looking-for-job-app.tetsdac.mongodb.net/?retryWrites=true&w=majority;
+let port = mongodb+srv://zazzys:zazzys73!@looking-for-job-app.tetsdac.mongodb.net/?retryWrites=true&w=majority
 
 if (process.env.PORT) {
   port = process.env.PORT;
