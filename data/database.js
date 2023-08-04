@@ -21,6 +21,7 @@ function getDb() {
   }
 
   return database;
+  
 }
 
 module.exports = {
