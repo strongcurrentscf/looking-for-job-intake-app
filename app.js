@@ -14,10 +14,10 @@ const notFoundMiddleware = require("./middlewares/not-found");
 const mainRoutes = require("./routes/main.route");
 const adminRoutes = require("./routes/admin.route");
 
-let port = 3000;
+let PORT = 3000;
 
 if (process.env.PORT) {
-  port = process.env.PORT;
+  PORT = process.env.PORT;
 }
 const app = express();
 
@@ -45,7 +45,7 @@ app.use(errorHandlerMiddleware);
 
 db.connectToDatabase()
   .then(function () {
-    app.listen(port);
+    app.listen(PORT);
   })
   .catch(function (error) {
     console.log("Failed to connect to the database!");
