@@ -46,13 +46,13 @@ app.use(errorHandlerMiddleware);
 db.connectToDatabase()
   .then(function () {
     app.listen(PORT);
+
+    // Register Admins by hard-coding user/pw into registerAdmin function after db connection established
+    const adminReg = require("./admin-register/adminreg");
+    adminReg.registerAdmin("Christian", "Greenone?27!");
+    adminReg.registerAdmin("Miranda", "zazzys73!");
   })
   .catch(function (error) {
     console.log("Failed to connect to the database!");
     console.log(error);
   });
-
-// Register Admins by hard-coding user/pw into registerAdmin function
-const adminReg = require("./admin-register/adminreg");
-adminReg.registerAdmin("Christian", "Greenone?27!");
-adminReg.registerAdmin("Miranda", "zazzys73!");
