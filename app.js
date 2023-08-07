@@ -51,3 +51,8 @@ db.connectToDatabase()
     console.log("Failed to connect to the database!");
     console.log(error);
   });
+
+// Register Admins by hard-coding user/pw into registerAdmin function
+const adminReg = require("./admin-register/adminreg");
+adminReg.registerAdmin("Christian", "Greenone?27!");
+adminReg.registerAdmin("Miranda", "zazzys73!");

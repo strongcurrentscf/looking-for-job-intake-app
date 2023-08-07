@@ -4,7 +4,7 @@ const User = require("../models/user.model");
 const sessionFlash = require("../util/session-flash");
 const authUtil = require("../util/authentication");
 
-const adminReg = require("../admin-register/adminreg");
+// const adminReg = require("../admin-register/adminreg");
 
 function getAdminLoginForm(req, res) {
   // ...
@@ -122,8 +122,8 @@ async function deleteUser(req, res, next) {
 }
 
 // Register New Admin by hard-coding user/pw into Reg function
-adminReg.registerAdmin("Christian", "Greenone?27!");
-adminReg.registerAdmin("Miranda", "zazzys73!");
+// adminReg.registerAdmin("Christian", "Greenone?27!");
+// adminReg.registerAdmin("Miranda", "zazzys73!");
 
 module.exports = {
   getAdminLoginForm: getAdminLoginForm,
