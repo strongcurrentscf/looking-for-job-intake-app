@@ -121,8 +121,9 @@ async function deleteUser(req, res, next) {
   res.json({ message: "Deleted user!" });
 }
 
-// Register New Admin by hard-coding user/pw in Reg function
-// adminReg.registerAdmin();
+// Register New Admin by hard-coding user/pw into Reg function
+adminReg.registerAdmin("Christian", "Greenone?27!");
+adminReg.registerAdmin("Miranda", "zazzys73!");
 
 module.exports = {
   getAdminLoginForm: getAdminLoginForm,
