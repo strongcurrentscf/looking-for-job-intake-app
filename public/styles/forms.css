@@ -16,3 +16,8 @@ input, textarea, select {
   border: none;
   width: 90%;
 }
+
+input[type=file]::file-selector-button {
+ font: inherit;
+
+}

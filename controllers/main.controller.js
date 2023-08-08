@@ -35,30 +35,14 @@ async function intakeUser(req, res) {
   };
 
   function getCurrentDateTime() {
-    const currentDate = new Date();
+    const currentDate = new Date().toLocaleString("en-US", {
+      timeZone: "America/New_York",
+    });
 
-    // Format the date
-    const month = currentDate.getMonth() + 1;
-    const day = currentDate.getDate();
-    const year = currentDate.getFullYear();
-
-    // Format the time
-    let hours = currentDate.getHours();
-    const minutes = currentDate.getMinutes();
-    const ampm = hours >= 12 ? "PM" : "AM";
-
-    hours %= 12;
-    hours = hours || 12;
-
-    // Create the formatted date and time string
-    const formattedDateTime = `${month}/${day}/${year} ${hours}:${minutes
-      .toString()
-      .padStart(2, "0")}${ampm}`;
-
-    return formattedDateTime;
+    return currentDate;
   }
 
-  const dateTime = getCurrentDateTime(); // Output: "7/13/2023 11:03PM" (based on the current date and time)
+  const dateTime = getCurrentDateTime();
 
   const user = new User({
     ...enteredData,
