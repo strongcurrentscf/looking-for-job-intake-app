@@ -12,6 +12,17 @@
                     <button class="btn">Logout</button>
                 </form>
                 <h3>All Candidates</h3>
+
+                <div class="candidate-sort">
+                    <% for (const position of candidatePositions) { %>
+
+                        <button class="btn btn-alt" data-position=<%=position %> data-csrf="<%= locals.csrfToken %>">
+                            <%= position + "s" %> 
+                        </button>
+
+                        <% } %>
+                </div>
+
                 <section>
                     <ul id="candidate-grid">
                         <% for (const candidate of candidates) { %>

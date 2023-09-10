@@ -7,7 +7,11 @@ const router = express.Router();
 
 router.get("/", mainController.getIntakeForm);
 
-router.post("/intake",imageUploadMiddleware ,mainController.intakeUser);
+router.post(
+  "/intake",
+  imageUploadMiddleware.configuredMulterMiddleware,
+  mainController.intakeUser
+);
 
 router.get("/thankyou", mainController.getThankYouConfirmation);
 

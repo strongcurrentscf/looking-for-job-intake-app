@@ -94,7 +94,8 @@ async function intakeUser(req, res) {
 
     res.redirect("/thankyou");
   } catch (error) {
-    next(error);
+    // next(error);
+    console.log(error);
     return;
   }
 }

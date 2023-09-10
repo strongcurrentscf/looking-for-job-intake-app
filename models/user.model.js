@@ -1,6 +1,8 @@
 const db = require("../data/database");
+const cloudinary = require("../middlewares/resume-upload"); 
 
 const mongodb = require("mongodb");
+const { cloudinaryUploadImageMiddleware } = require("../middlewares/resume-upload");
 
 class User {
   constructor(userData) {
@@ -9,8 +11,8 @@ class User {
     this.phone = userData.phone;
     this.email = userData.email;
     this.resume = userData.resume;
-    this.resumeFilePath = `user-data/pdf/${userData.resume}`;
-    this.resumeUrl = `/users/pdf/${userData.resume}`;
+    this.resumeImagePath = `lookingforjob/user-data/pdf/${userData.resume}`;
+    this.resumeUrl = userData.resumeUrl;
     this.position = userData.position;
     this.dateTime = userData.dateTime;
     if (userData._id) {
@@ -37,9 +39,18 @@ class User {
       phone: this.phone,
       email: this.email,
       resume: this.resume,
+      resumeImagePath: this.resumeImagePath,
       position: this.position,
       dateTime: this.dateTime,
     };
+
+
+    // Get return from cloudinary, drill it for url, and include in userData before inserting to db in next function call.  
+    const result = await cloudinary.cloudinaryUploadImageMiddleware(this.resumeImagePath.toString());
+
+    userData.resumeUrl = result.secure_url;
+
+    console.log(userData); // DELETE
 
     await db.getDb().collection("users").insertOne(userData);
   }

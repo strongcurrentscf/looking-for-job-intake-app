@@ -86,21 +86,29 @@ async function getAdminPortal(req, res, next) {
   //...
   try {
     const candidates = await Admin.getAllCandidates();
+    const candidatePositions = ["Pizza Maker", "Porter", "Prep", "Counter"];
     // console.log(candidates);
 
-    res.render("admin/portal", { candidates: candidates });
+    res.render("admin/portal", {
+      candidates: candidates,
+      candidatePositions: candidatePositions,
+    });
   } catch (error) {
     next(error);
     return;
   }
 }
 
+async function getSortedAdminPortal(req, res, next) {}
+
 async function getUserFile(req, res, next) {
   let user;
   try {
     user = await User.findUserById(req.params.id);
 
-    res.render("admin/user-file", {candidate: user})
+    console.log(user);
+
+    res.render("admin/user-file", { candidate: user });
   } catch (error) {
     next(error);
     return;

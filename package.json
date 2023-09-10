@@ -4,7 +4,7 @@
   "description": "A web application to take in the contact information of candidates that walk into the shop looking for a job.",
   "main": "index.js",
   "engines": {
-    "node": "19.x" 
+    "node": "19.x"
   },
   "scripts": {
     "start": "nodemon app.js"
@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.40.0",
     "connect-mongodb-session": "^3.1.1",
     "csurf": "^1.11.0",
     "ejs": "^3.1.9",
