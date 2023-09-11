@@ -87,7 +87,6 @@ async function getAdminPortal(req, res, next) {
   try {
     const candidates = await Admin.getAllCandidates();
     const candidatePositions = ["Pizza Maker", "Porter", "Prep", "Counter"];
-    // console.log(candidates);
 
     res.render("admin/portal", {
       candidates: candidates,
@@ -99,7 +98,18 @@ async function getAdminPortal(req, res, next) {
   }
 }
 
-async function getSortedAdminPortal(req, res, next) {}
+async function getSortedAdminPortal(req, res, next) {
+  try {
+    const candidates = await Admin.getSortedCandidates(req.params.position);
+
+    console.log(candidates);
+  } catch {
+    next(error);
+    return;
+  }
+  
+  res.json({ message: `Sorted for ${req.params.position + "s"}!` });
+}
 
 async function getUserFile(req, res, next) {
   let user;
@@ -126,7 +136,7 @@ async function deleteUser(req, res, next) {
     return;
   }
 
-  res.json({ message: "Deleted user!" });
+  res.json({ message: "Deleted candidate!" });
 }
 
 // Register New Admin by hard-coding user/pw into Reg function
@@ -138,6 +148,7 @@ module.exports = {
   loginAdmin: loginAdmin,
   logoutAdmin: logoutAdmin,
   getAdminPortal: getAdminPortal,
+  getSortedAdminPortal: getSortedAdminPortal,
   getUserFile: getUserFile,
   deleteUser: deleteUser,
 };

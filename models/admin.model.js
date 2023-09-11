@@ -29,6 +29,17 @@ class Administrator {
 
     return candidates;
   }
+
+  static async getSortedCandidates(position) {
+    const candidates = await db
+      .getDb()
+      .collection("users")
+      .find({ position: position })
+      .sort({ _id: -1 })
+      .toArray();
+
+    return candidates;
+  }
 }
 
 module.exports = Administrator;

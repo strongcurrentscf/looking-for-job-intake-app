@@ -16,8 +16,8 @@
                 <div class="candidate-sort">
                     <% for (const position of candidatePositions) { %>
 
-                        <button class="btn btn-alt" data-position=<%=position %> data-csrf="<%= locals.csrfToken %>">
-                            <%= position + "s" %> 
+                        <button class="btn btn-alt" data-position="<%=position %>" data-csrf="<%= locals.csrfToken %>">
+                            <%= position + "s" %>
                         </button>
 
                         <% } %>
