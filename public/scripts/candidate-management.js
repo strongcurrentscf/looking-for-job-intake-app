@@ -27,26 +27,33 @@ for (const deleteCandidateButtonElement of deleteCandidateButtonElements) {
   deleteCandidateButtonElement.addEventListener("click", deleteCandidate);
 }
 
-async function sortCandidates(event) {
-  const buttonElement = event.target;
-  const userPosition = buttonElement.dataset.position;
-  const csrfToken = buttonElement.dataset.csrf;
+// async function sortCandidates(event) {
+//   const buttonElement = event.target;
+//   const userPosition = buttonElement.dataset.position;
+//   // const csrfToken = buttonElement.dataset.csrf;
 
-  const response = await fetch(
-    "/lookingforjob/" + userPosition + "/sort" + "?_csrf=" + csrfToken,
-    {
-      method: "GET",
-    }
-  );
+//   const response = await fetch(
+//     "/lookingforjob/" + userPosition + "/sort",
+//     {
+//       method: "GET",
+//     }
+//   );
+//   // const response = await fetch(
+//   //   "/lookingforjob/" + userPosition + "/sort" + "?_csrf=" + csrfToken,
+//   //   {
+//   //     method: "GET",
+//   //   }
+//   // );
 
-  if (!response.ok) {
-    alert("Something went wrong!");
-    return;
-  }
+//   if (!response.ok) {
+//     alert("Something went wrong!");
+//     return;
+//   }
 
-  // DOM refresh function
-}
+//   // DOM refresh function
 
-for (const sortCandidatesButtonElement of sortCandidatesButtonElements) {
-  sortCandidatesButtonElement.addEventListener("click", sortCandidates);
-}
+// }
+
+// for (const sortCandidatesButtonElement of sortCandidatesButtonElements) {
+//   sortCandidatesButtonElement.addEventListener("click", sortCandidates);
+// }

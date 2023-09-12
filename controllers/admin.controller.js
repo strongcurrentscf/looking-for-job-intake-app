@@ -84,32 +84,58 @@ function logoutAdmin(req, res) {
 
 async function getAdminPortal(req, res, next) {
   //...
-  try {
-    const candidates = await Admin.getAllCandidates();
-    const candidatePositions = ["Pizza Maker", "Porter", "Prep", "Counter"];
+  const sortingParameter = req.params.position;
+  console.log("Will be sorting for:", sortingParameter);
 
-    res.render("admin/portal", {
-      candidates: candidates,
-      candidatePositions: candidatePositions,
-    });
-  } catch (error) {
-    next(error);
-    return;
+  if (sortingParameter === undefined || sortingParameter === null) {
+    try {
+      const candidates = await Admin.getAllCandidates();
+      const candidatePositions = ["Pizza Maker", "Porter", "Prep", "Counter"];
+
+      res.render("admin/portal", {
+        candidates: candidates,
+        candidatePositions: candidatePositions,
+      });
+    } catch (error) {
+      console.error("Error getting all candidates:", error);
+      return next(error);
+    }
+  } else {
+    try {
+      const candidates = await Admin.getSortedCandidates(sortingParameter);
+      const candidatePositions = ["Pizza Maker", "Porter", "Prep", "Counter"];
+
+      console.log("Sorted candidates:", candidates);
+
+      res.render("admin/portal", {
+        candidates: candidates,
+        candidatePositions: candidatePositions,
+      });
+    } catch (error) {
+      console.error("Error getting sorted candidates:", error);
+      return  next(error);
+    }
   }
 }
 
-async function getSortedAdminPortal(req, res, next) {
-  try {
-    const candidates = await Admin.getSortedCandidates(req.params.position);
+// async function getSortedAdminPortal(req, res, next) {
+//   try {
+//     const candidates = await Admin.getSortedCandidates(req.params.position);
+//     const candidatePositions = ["Pizza Maker", "Porter", "Prep", "Counter"];
 
-    console.log(candidates);
-  } catch {
-    next(error);
-    return;
-  }
-  
-  res.json({ message: `Sorted for ${req.params.position + "s"}!` });
-}
+//     console.log(candidates);
+
+//     res.render("admin/portal", {
+//       candidates: candidates,
+//       candidatePositions: candidatePositions,
+//     });
+//   } catch (error) {
+//     next(error);
+//     return;
+//   }
+
+//   // res.json({ message: `Sorted for ${req.params.position + "s"}!` });
+// }
 
 async function getUserFile(req, res, next) {
   let user;
@@ -148,7 +174,7 @@ module.exports = {
   loginAdmin: loginAdmin,
   logoutAdmin: logoutAdmin,
   getAdminPortal: getAdminPortal,
-  getSortedAdminPortal: getSortedAdminPortal,
+  // getSortedAdminPortal: getSortedAdminPortal,
   getUserFile: getUserFile,
   deleteUser: deleteUser,
 };

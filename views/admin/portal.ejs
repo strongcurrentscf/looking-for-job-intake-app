@@ -14,11 +14,15 @@
                 <h3>All Candidates</h3>
 
                 <div class="candidate-sort">
+                    <a class="btn btn-alt" data-csrf="<%= locals.csrfToken %>" href="/lookingforjob">
+                        All Positions
+                    </a>
                     <% for (const position of candidatePositions) { %>
 
-                        <button class="btn btn-alt" data-position="<%=position %>" data-csrf="<%= locals.csrfToken %>">
+                        <a href="/lookingforjob/<%= position %>/sort" class="btn btn-alt"
+                            data-csrf="<%= locals.csrfToken %>">
                             <%= position + "s" %>
-                        </button>
+                        </a>
 
                         <% } %>
                 </div>
