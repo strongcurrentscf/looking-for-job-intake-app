@@ -7,8 +7,6 @@ const authUtil = require("../util/authentication");
 // const adminReg = require("../admin-register/adminreg");
 
 function getAdminLoginForm(req, res) {
-  // ...
-
   let sessionData = sessionFlash.getSessionData(req, {
     errorMessage: "",
     adminuser: "",
@@ -19,8 +17,6 @@ function getAdminLoginForm(req, res) {
 }
 
 async function loginAdmin(req, res, next) {
-  // ...
-
   let sessionData = {
     adminuser: req.body.adminuser,
     password: req.body.password,
@@ -76,16 +72,13 @@ async function loginAdmin(req, res, next) {
 }
 
 function logoutAdmin(req, res) {
-  //...
-
   authUtil.destroyAdminAuthSession(req);
   res.redirect("/login");
 }
 
 async function getAdminPortal(req, res, next) {
-  //...
   const sortingParameter = req.params.position;
-  console.log("Will be sorting for:", sortingParameter);
+  // console.log("Will be sorting for:", sortingParameter);
 
   if (sortingParameter === undefined || sortingParameter === null) {
     try {
@@ -105,7 +98,7 @@ async function getAdminPortal(req, res, next) {
       const candidates = await Admin.getSortedCandidates(sortingParameter);
       const candidatePositions = ["Pizza Maker", "Porter", "Prep", "Counter"];
 
-      console.log("Sorted candidates:", candidates);
+      // console.log("Sorted candidates:", candidates);
 
       res.render("admin/portal", {
         candidates: candidates,
@@ -113,36 +106,17 @@ async function getAdminPortal(req, res, next) {
       });
     } catch (error) {
       console.error("Error getting sorted candidates:", error);
-      return  next(error);
+      return next(error);
     }
   }
 }
-
-// async function getSortedAdminPortal(req, res, next) {
-//   try {
-//     const candidates = await Admin.getSortedCandidates(req.params.position);
-//     const candidatePositions = ["Pizza Maker", "Porter", "Prep", "Counter"];
-
-//     console.log(candidates);
-
-//     res.render("admin/portal", {
-//       candidates: candidates,
-//       candidatePositions: candidatePositions,
-//     });
-//   } catch (error) {
-//     next(error);
-//     return;
-//   }
-
-//   // res.json({ message: `Sorted for ${req.params.position + "s"}!` });
-// }
 
 async function getUserFile(req, res, next) {
   let user;
   try {
     user = await User.findUserById(req.params.id);
 
-    console.log(user);
+    // console.log(user);
 
     res.render("admin/user-file", { candidate: user });
   } catch (error) {
@@ -152,7 +126,6 @@ async function getUserFile(req, res, next) {
 }
 
 async function deleteUser(req, res, next) {
-  // ...
   let user;
   try {
     user = await User.findUserById(req.params.id);
@@ -174,7 +147,6 @@ module.exports = {
   loginAdmin: loginAdmin,
   logoutAdmin: logoutAdmin,
   getAdminPortal: getAdminPortal,
-  // getSortedAdminPortal: getSortedAdminPortal,
   getUserFile: getUserFile,
   deleteUser: deleteUser,
 };

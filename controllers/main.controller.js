@@ -6,7 +6,6 @@ const sessionFlash = require("../util/session-flash");
 const adminReg = require("../admin-register/adminreg");
 
 function getIntakeForm(req, res) {
-  // ...
   let sessionData = sessionFlash.getSessionData(req);
 
   if (!sessionData) {
@@ -23,16 +22,25 @@ function getIntakeForm(req, res) {
 }
 
 async function intakeUser(req, res) {
-  // ...
   const enteredData = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     phone: req.body.phone,
     email: req.body.email,
-    resume: req.file.filename,
-    resumeFilePath: this.resumeFilePath,
+    // resume: req.file.filename,
+    // resumeFilePath: this.resumeFilePath,
     position: req.body.position,
   };
+
+  if (req.file) {
+    enteredData.resume = req.file.filename; // Assign the uploaded file to enteredData
+    enteredData.resumeFilePath = this.resumeFilePath; // Assign the file path
+  } else {
+    enteredData.resume = "";
+    enteredData.resumeFilePath = "";
+  }
+
+  // console.log(enteredData);
 
   function getCurrentDateTime() {
     const currentDate = new Date().toLocaleString("en-US", {
@@ -55,6 +63,7 @@ async function intakeUser(req, res) {
       req.body.lastname,
       req.body.phone,
       req.body.email,
+      enteredData.resume,
       req.body.position
     )
   ) {
@@ -62,7 +71,7 @@ async function intakeUser(req, res) {
       req,
       {
         errorMessage:
-          "Please make sure all fields are filled and a desired position option is selected.",
+          "Please make sure all fields are filled, a PDF file of your CV/Resume is uploaded, and a Desired Position option is selected.",
         ...enteredData,
       },
       function () {
@@ -94,7 +103,7 @@ async function intakeUser(req, res) {
 
     res.redirect("/thankyou");
   } catch (error) {
-    // next(error);
+    next(error);
     console.log(error);
     return;
   }

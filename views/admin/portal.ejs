@@ -11,8 +11,7 @@
                     <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
                     <button class="btn">Logout</button>
                 </form>
-                <h3>All Candidates</h3>
-
+                <h3>Candidates</h3>
                 <div class="candidate-sort">
                     <a class="btn btn-alt" data-csrf="<%= locals.csrfToken %>" href="/lookingforjob">
                         All Positions
@@ -26,7 +25,6 @@
 
                         <% } %>
                 </div>
-
                 <section>
                     <ul id="candidate-grid">
                         <% for (const candidate of candidates) { %>

@@ -19,7 +19,7 @@ const cloudinary = require("cloudinary").v2;
 cloudinary.config({
   secure: true,
 });
-console.log(cloudinary.config());
+// console.log(cloudinary.config());
 
 const cloudinaryUploadImageMiddleware = async (imagePath) => {
   // Use the uploaded file's name as the asset's public ID and

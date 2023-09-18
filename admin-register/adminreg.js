@@ -7,12 +7,13 @@ async function registerAdmin(adminname, password) {
   // const hashedPassword = await bcrypt.hash("zazzys73!", 12);
   const hashedPassword = await bcrypt.hash(password, 12);
 
-const registration = await db.getDb().collection("admins").insertOne({
+// const registration = await db.getDb().collection("admins").insertOne({
+await db.getDb().collection("admins").insertOne({
     adminname: adminName,
     password: hashedPassword,
 });
     
-    console.log(registration);
+    // console.log(registration);
 }
 
 module.exports = { registerAdmin: registerAdmin };

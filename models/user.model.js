@@ -1,8 +1,6 @@
 const db = require("../data/database");
 const cloudinary = require("../middlewares/resume-upload"); 
-
 const mongodb = require("mongodb");
-const { cloudinaryUploadImageMiddleware } = require("../middlewares/resume-upload");
 
 class User {
   constructor(userData) {
@@ -50,7 +48,7 @@ class User {
 
     userData.resumeUrl = result.secure_url;
 
-    console.log(userData); // DELETE
+    // console.log(userData);
 
     await db.getDb().collection("users").insertOne(userData);
   }
